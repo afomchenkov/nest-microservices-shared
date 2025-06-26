@@ -1,1 +1,3 @@
-export const test1 = 'utils';
+export function core(): string {
+  return 'core';
+}
