@@ -1,7 +1,8 @@
-# Stage: Build the project development
-FROM node:alpine AS development
+FROM node:22-alpine AS development
+
 ARG NODE_ENV=development
 ENV NODE_ENV=${NODE_ENV}
+
 WORKDIR /usr/src/app
 
 COPY package*.json ./
@@ -10,12 +11,13 @@ RUN npm install
 COPY . .
 RUN npm run build
 
-# Stage: Build the project production
-FROM node:alpine as production
+FROM node:22-alpine as production
+
 ARG NODE_ENV=production
 ENV NODE_ENV=${NODE_ENV}
 
 WORKDIR /usr/src/app
+
 COPY package*.json ./
 
 RUN npm install --only=production
