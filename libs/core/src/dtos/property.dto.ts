@@ -2,6 +2,8 @@ import {
   IsString,
   IsDefined,
   IsOptional,
+  IsArray,
+  IsInt,
   ValidateNested,
 } from 'class-validator';
 import { Type } from 'class-transformer';
@@ -84,4 +86,25 @@ export class PropertyDto extends BaseDto {
   @ValidateNested()
   @Type(() => Object)
   toKnow?: object;
+}
+
+export class AllPropertiesDto {
+  @ApiProperty({
+    type: [PropertyDto],
+    required: false,
+  })
+  @IsArray()
+  @ValidateNested({ each: true })
+  @Type(() => PropertyDto)
+  public items: PropertyDto[];
+
+  @ApiProperty({
+    description: 'Number of items',
+    nullable: false,
+    required: true,
+    type: Number,
+  })
+  @IsDefined()
+  @IsInt()
+  public items_count: number;
 }

@@ -40,7 +40,7 @@ async function bootstrap() {
             ? format.combine(
               format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss.SSS' }),
               format.ms(),
-              utilities.format.nestLike('Service A Dev', {
+              utilities.format.nestLike('Service B Dev', {
                 colors: true,
                 prettyPrint: true,
               }),
