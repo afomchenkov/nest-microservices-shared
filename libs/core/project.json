@@ -1,7 +1,7 @@
 {
   "name": "core",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/core/src",
+  "sourceRoot": "libs/core",
   "projectType": "library",
   "release": {
     "version": {
@@ -16,8 +16,8 @@
       "executor": "@nx/js:tsc",
       "outputs": ["{options.outputPath}"],
       "options": {
-        "outputPath": "dist/libs/core",
-        "main": "libs/core/src/index.ts",
+        "outputPath": "dist/core",
+        "main": "libs/core/index.ts",
         "tsConfig": "libs/core/tsconfig.lib.json",
         "assets": ["libs/core/*.md"]
       }

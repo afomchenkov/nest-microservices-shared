@@ -6,7 +6,6 @@
     "composite": true,
     "declarationMap": true,
     "declaration": true,
-    "emitDeclarationOnly": true,
     "importHelpers": true,
     "isolatedModules": true,
     "lib": ["es2022"],
@@ -26,7 +25,6 @@
     "strict": true,
     "sourceMap": true,
     "target": "es2022",
-    "customConditions": ["development"],
     "paths": {
       "@shared/core": ["libs/core/src/index.ts"]
     }

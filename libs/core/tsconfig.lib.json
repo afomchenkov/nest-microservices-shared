@@ -2,11 +2,17 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "baseUrl": "./",
-    "outDir": "../../dist/apps/core",
+    "outDir": "../../dist/core",
+    "target": "ES2020",
+    "module": "CommonJS",
+    "moduleResolution": "Node",
     "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    "composite": true,
     "types": ["node"]
   },
-  "include": ["src/**/*.ts"],
+  "include": ["src/**/*.ts", "index.ts"],
   "exclude": [
     "node_modules",
     "dist",
