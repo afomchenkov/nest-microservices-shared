@@ -1,10 +1,10 @@
 import { Column, Entity, OneToOne } from 'typeorm';
 
 import { BaseEntity } from './base.entity';
-import { Booking } from './booking.entity';
+import { BookingEntity } from './booking.entity';
 
 @Entity({ name: 'order' })
-export class Order extends BaseEntity {
+export class OrderEntity extends BaseEntity {
   @Column({
     name: 'price',
     nullable: false,
@@ -29,6 +29,6 @@ export class Order extends BaseEntity {
   })
   effectiveDate: Date;
 
-  @OneToOne(() => Booking, (booking) => booking.order)
-  booking: Booking;
+  @OneToOne(() => BookingEntity, (booking) => booking.order)
+  booking: BookingEntity;
 }

@@ -18,3 +18,14 @@ Run `nx test core` to execute the unit tests via [Jest](https://jestjs.io).
 - Allows you to define relationships between different tables (e.g., one-to-many, many-to-many).
 - Simplifies database queries and operations.
 ```
+
+
+## Code separation
+```text
+- Entities (for persistence) - ORM-mapped classes for DB (decorated with @Entity, @Column, etc.)
+- Domain models / interfaces (business logic) - Core logic representation, no framework dependency
+- DTOs (transport/validation) - Shape of data coming from or going to the client (with validation)
+
+- Conversion flow:
+DTO <--> Domain Model <--> Entity
+```

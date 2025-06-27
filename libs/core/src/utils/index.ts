@@ -1,3 +1,1 @@
-export function core(): string {
-  return 'core';
-}
+export * from './date-time.utils';

@@ -1,11 +1,24 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+// import { DataSource } from 'typeorm';
 
-import { Availability, Booking, Order, Property, User } from '../entities';
+import {
+  AvailabilityEntity,
+  BookingEntity,
+  OrderEntity,
+  PropertyEntity,
+  UserEntity,
+} from '../entities';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([Availability, Booking, Order, Property, User]),
+    TypeOrmModule.forFeature([
+      AvailabilityEntity,
+      BookingEntity,
+      OrderEntity,
+      PropertyEntity,
+      UserEntity,
+    ]),
   ],
   controllers: [],
   providers: [],

@@ -3,7 +3,7 @@ import { Availability } from './availability.model';
 import { Booking } from './booking.model';
 import { BaseModel } from './base.model';
 
-export interface Property extends BaseModel{
+export interface Property extends BaseModel {
   name: string;
   description: string;
   address: string;

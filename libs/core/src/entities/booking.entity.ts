@@ -1,19 +1,18 @@
 import {
   BaseEntity,
   Column,
-  CreateDateColumn,
   Entity,
   ManyToOne,
   OneToOne,
   JoinColumn,
 } from 'typeorm';
 
-import { Property } from './property.entity';
-import { User } from './user.entity';
-import { Order } from './order.entity';
+import { PropertyEntity } from './property.entity';
+import { UserEntity } from './user.entity';
+import { OrderEntity } from './order.entity';
 
 @Entity({ name: 'booking' })
-export class Booking extends BaseEntity {
+export class BookingEntity extends BaseEntity {
   @Column({
     name: 'title',
     type: 'varchar',
@@ -30,14 +29,14 @@ export class Booking extends BaseEntity {
   })
   description: string;
 
-  @CreateDateColumn({
+  @Column({
     name: 'date_from',
     type: 'timestamptz',
     default: () => 'CURRENT_TIMESTAMP',
   })
   dateFrom: string;
 
-  @CreateDateColumn({
+  @Column({
     name: 'date_to',
     type: 'timestamptz',
     default: () => 'CURRENT_TIMESTAMP',
@@ -47,19 +46,19 @@ export class Booking extends BaseEntity {
   @Column({ default: true, name: 'is_active' })
   isActive: boolean;
 
-  @ManyToOne(() => Property, (property) => property.bookings, {
+  @ManyToOne(() => PropertyEntity, (property) => property.bookings, {
     onDelete: 'CASCADE',
   })
   @JoinColumn({ name: 'property_id' })
-  property: Property;
+  property: PropertyEntity;
 
-  @ManyToOne(() => User, (user) => user.bookings, {
+  @ManyToOne(() => UserEntity, (user) => user.bookings, {
     onDelete: 'CASCADE',
   })
   @JoinColumn({ name: 'tenant_id' })
-  tenant: User;
+  tenant: UserEntity;
 
-  @OneToOne(() => Order, (order) => order.booking, { cascade: true })
+  @OneToOne(() => OrderEntity, (order) => order.booking, { cascade: true })
   @JoinColumn({ name: 'order_id' })
-  order: Order;
+  order: OrderEntity;
 }

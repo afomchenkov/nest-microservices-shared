@@ -24,4 +24,4 @@ RUN npm install --only=production
 
 COPY . .
 COPY --from=development /usr/src/app/dist ./dist
-CMD ["node", "dist/apps/serviceA/main"]
+CMD ["node", "dist/apps/serviceB/main"]

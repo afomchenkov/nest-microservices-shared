@@ -1,12 +1,12 @@
 import { Column, Entity, ManyToOne, JoinColumn, OneToMany } from 'typeorm';
 
 import { BaseEntity } from './base.entity';
-import { User } from './user.entity';
-import { Availability } from './availability.entity';
-import { Booking } from './booking.entity';
+import { UserEntity } from './user.entity';
+import { AvailabilityEntity } from './availability.entity';
+import { BookingEntity } from './booking.entity';
 
 @Entity({ name: 'property' })
-export class Property extends BaseEntity {
+export class PropertyEntity extends BaseEntity {
   @Column({
     name: 'name',
     type: 'varchar',
@@ -35,13 +35,13 @@ export class Property extends BaseEntity {
   @Column({ name: 'to_know', type: 'jsonb', nullable: true })
   toKnow: object;
 
-  @ManyToOne(() => User, (user) => user.properties)
+  @ManyToOne(() => UserEntity, (user) => user.properties)
   @JoinColumn({ name: 'user_id' })
-  owner: User;
+  owner: UserEntity;
 
-  @OneToMany(() => Availability, (availability) => availability.property)
-  availabilities: Availability[];
+  @OneToMany(() => AvailabilityEntity, (availability) => availability.property)
+  availabilities: AvailabilityEntity[];
 
-  @OneToMany(() => Booking, (booking) => booking.property)
-  bookings: Booking[];
+  @OneToMany(() => BookingEntity, (booking) => booking.property)
+  bookings: BookingEntity[];
 }

@@ -1,7 +1,7 @@
 {
-  "extends": "../../tsconfig.json",
+  "extends": "./tsconfig.json",
   "compilerOptions": {
-    "declaration": true,
+    "baseUrl": "./",
     "outDir": "../../dist/apps/serviceA"
   },
   "include": ["src/**/*"],

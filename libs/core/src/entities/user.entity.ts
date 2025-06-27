@@ -1,11 +1,11 @@
 import { Column, Entity, OneToMany } from 'typeorm';
 
 import { BaseEntity } from './base.entity';
-import { Property } from './property.entity';
-import { Booking } from './booking.entity';
+import { PropertyEntity } from './property.entity';
+import { BookingEntity } from './booking.entity';
 
 @Entity({ name: 'user' })
-export class User extends BaseEntity {
+export class UserEntity extends BaseEntity {
   @Column({
     name: 'username',
     type: 'varchar',
@@ -31,9 +31,9 @@ export class User extends BaseEntity {
   @Column({ default: true, name: 'is_active' })
   isActive: boolean;
 
-  @OneToMany(() => Property, (property) => property.owner)
-  properties: Property[];
+  @OneToMany(() => PropertyEntity, (property) => property.owner)
+  properties: PropertyEntity[];
 
-  @OneToMany(() => Booking, (booking) => booking.property)
-  bookings: Booking[];
+  @OneToMany(() => BookingEntity, (booking) => booking.property)
+  bookings: BookingEntity[];
 }

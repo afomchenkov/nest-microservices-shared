@@ -1,7 +1,11 @@
 {
   "compilerOptions": {
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "baseUrl": "./",
     "composite": true,
     "declarationMap": true,
+    "declaration": true,
     "emitDeclarationOnly": true,
     "importHelpers": true,
     "isolatedModules": true,
@@ -13,8 +17,14 @@
     "noImplicitOverride": true,
     "noImplicitReturns": true,
     "noUnusedLocals": true,
+    "incremental": true,
+    "strictNullChecks": false,
+    "noImplicitAny": false,
+    "strictBindCallApply": false,
+    "forceConsistentCasingInFileNames": false,
     "skipLibCheck": true,
     "strict": true,
+    "sourceMap": true,
     "target": "es2022",
     "customConditions": ["development"],
     "paths": {

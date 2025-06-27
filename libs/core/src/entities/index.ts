@@ -1,5 +1,5 @@
-export { Availability } from './availability.entity';
-export { Booking } from './booking.entity';
-export { Order } from './order.entity';
-export { Property } from './property.entity';
-export { User } from './user.entity';
+export { AvailabilityEntity } from './availability.entity';
+export { BookingEntity } from './booking.entity';
+export { OrderEntity } from './order.entity';
+export { PropertyEntity } from './property.entity';
+export { UserEntity } from './user.entity';
