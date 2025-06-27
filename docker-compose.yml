@@ -1,0 +1,45 @@
+name: shared-microservices
+
+services:
+  mysql-db:
+    image: mysql:8.0
+    container_name: core-db
+    restart: unless-stopped
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_DATABASE: shared
+      MYSQL_USER: shared_user
+      MYSQL_PASSWORD: shared_user_123
+      MYSQL_ROOT_PASSWORD: shared_user_123
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 3s
+      timeout: 5s
+      retries: 6
+    volumes:
+      - shared-db-data:/var/lib/mysql
+    networks:
+      - shared-network
+
+  main-service:
+    image: main-service:dev
+    container_name: main-service
+    build:
+      context: .
+      dockerfile: apps/main/Dockerfile
+    tty: true
+    depends_on:
+      mysql-db:
+        condition: service_healthy
+    networks:
+      - shared-network
+
+networks:
+  shared-network:
+    name: shared-network
+    driver: bridge
+
+volumes:
+  shared-db-data:
+    name: shared-db-data
