@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { AppController } from './app.controller';
-import { AppService } from './app.service';
+import { AppService } from '../services';
 
 describe('AppController', () => {
   let app: TestingModule;
@@ -12,10 +12,11 @@ describe('AppController', () => {
     }).compile();
   });
 
-  describe('getData', () => {
-    it('should return "Hello API"', () => {
+  describe('getBookings', () => {
+    it('should return bookings', async () => {
       const appController = app.get<AppController>(AppController);
-      expect(appController.getData()).toEqual({ message: 'Hello API' });
+      const bookings = await appController.getBookings();
+      expect(bookings.items_count).toBeGreaterThan(0);
     });
   });
 });

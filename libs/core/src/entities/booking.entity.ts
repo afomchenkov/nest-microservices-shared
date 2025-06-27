@@ -1,5 +1,4 @@
 import {
-  BaseEntity,
   Column,
   Entity,
   ManyToOne,
@@ -7,6 +6,7 @@ import {
   JoinColumn,
 } from 'typeorm';
 
+import { BaseEntity } from './base.entity';
 import { PropertyEntity } from './property.entity';
 import { UserEntity } from './user.entity';
 import { OrderEntity } from './order.entity';

@@ -10,7 +10,7 @@ export interface Property extends BaseModel {
   country: string;
   amenities?: object;
   toKnow?: object;
-  owner: User;
-  availabilities: Availability[];
-  bookings: Booking[];
+  owner?: User;
+  availabilities?: Availability[];
+  bookings?: Booking[];
 }

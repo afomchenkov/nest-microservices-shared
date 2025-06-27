@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { Repository } from 'typeorm';
-import { UserEntity } from '@shared/core';
+import { UserEntity, User } from '@shared/core';
 
 @Injectable()
 export class UserRepository {
@@ -20,11 +20,11 @@ export class UserRepository {
     await this.user.delete(id);
   }
 
-  async create(user: UserEntity): Promise<UserEntity> {
+  async create(user: User): Promise<UserEntity> {
     return this.user.save(user);
   }
 
-  async update(user: UserEntity): Promise<UserEntity> {
+  async update(user: User): Promise<UserEntity> {
     return this.user.save(user);
   }
 }

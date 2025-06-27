@@ -9,7 +9,7 @@ export interface Booking extends BaseModel {
   dateFrom: string;
   dateTo: string;
   isActive: boolean;
-  property: Property;
-  tenant: User;
-  order: Order;
+  property?: Property;
+  tenant?: User;
+  order?: Order;
 }

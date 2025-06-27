@@ -12,9 +12,9 @@ describe('AppService', () => {
     service = app.get<AppService>(AppService);
   });
 
-  describe('getData', () => {
-    it('should return "Hello API"', () => {
-      expect(service.getData()).toEqual({ message: 'Hello API' });
+  describe('getActiveBookings', () => {
+    it('should have defined method', () => {
+      expect(service.getActiveBookings).toBeDefined();
     });
   });
 });
