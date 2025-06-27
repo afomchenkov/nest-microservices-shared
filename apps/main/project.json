@@ -1,7 +1,7 @@
 {
-  "name": "serviceB",
+  "name": "main",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "apps/serviceB/src",
+  "sourceRoot": "apps/main/src",
   "projectType": "application",
   "tags": [],
   "targets": {
@@ -23,15 +23,15 @@
       "defaultConfiguration": "development",
       "dependsOn": ["build"],
       "options": {
-        "buildTarget": "apps:build",
+        "buildTarget": "main:build",
         "runBuildTargetDependencies": false
       },
       "configurations": {
         "development": {
-          "buildTarget": "apps:build:development"
+          "buildTarget": "main:build:development"
         },
         "production": {
-          "buildTarget": "apps:build:production"
+          "buildTarget": "main:build:production"
         }
       }
     },
