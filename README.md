@@ -34,3 +34,6 @@ For single DB:
 Dedicated app/script (migration-runner) that uses all shared entities and manages migration centrally
 - one shared DB across services
 - modular monolith architecture
+
+![booking-example](https://github.com/user-attachments/assets/90d4466f-32f4-4dbc-a066-d1ec760e6c52)
+
