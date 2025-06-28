@@ -1,4 +1,4 @@
-FROM node:22-alpine AS development
+FROM node:22-alpine AS build
 
 ARG NODE_ENV=development
 ENV NODE_ENV=${NODE_ENV}
@@ -23,5 +23,5 @@ COPY package*.json ./
 RUN npm install --only=production
 
 COPY . .
-COPY --from=development /usr/src/app/dist ./dist
+COPY --from=build /usr/src/app/dist ./dist
 CMD ["node", "dist/apps/serviceB/main"]

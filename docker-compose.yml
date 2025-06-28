@@ -27,7 +27,33 @@ services:
     container_name: main-service
     build:
       context: .
-      dockerfile: apps/main/Dockerfile
+      dockerfile: apps/main/Dockerfile.dev
+    tty: true
+    depends_on:
+      mysql-db:
+        condition: service_healthy
+    networks:
+      - shared-network
+
+  service-a:
+    image: service-a:dev
+    container_name: service-a
+    build:
+      context: .
+      dockerfile: apps/serviceA/Dockerfile.dev
+    tty: true
+    depends_on:
+      mysql-db:
+        condition: service_healthy
+    networks:
+      - shared-network
+
+  service-b:
+    image: service-b:dev
+    container_name: service-b
+    build:
+      context: .
+      dockerfile: apps/serviceB/Dockerfile.dev
     tty: true
     depends_on:
       mysql-db:

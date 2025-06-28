@@ -36,7 +36,7 @@ export class PropertyEntity extends BaseEntity {
   toKnow: object;
 
   @ManyToOne(() => UserEntity, (user) => user.properties)
-  @JoinColumn({ name: 'user_id' })
+  @JoinColumn({ name: 'owner_id' })
   owner: UserEntity;
 
   @OneToMany(() => AvailabilityEntity, (availability) => availability.property)

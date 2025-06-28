@@ -3,6 +3,7 @@ import { Column, Entity, OneToMany } from 'typeorm';
 import { BaseEntity } from './base.entity';
 import { PropertyEntity } from './property.entity';
 import { BookingEntity } from './booking.entity';
+import { OrderEntity } from './order.entity';
 
 @Entity({ name: 'user' })
 export class UserEntity extends BaseEntity {
@@ -33,6 +34,9 @@ export class UserEntity extends BaseEntity {
 
   @OneToMany(() => PropertyEntity, (property) => property.owner)
   properties: PropertyEntity[];
+
+  @OneToMany(() => OrderEntity, (order) => order.user)
+  orders: OrderEntity[];
 
   @OneToMany(() => BookingEntity, (booking) => booking.property)
   bookings: BookingEntity[];

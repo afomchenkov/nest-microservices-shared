@@ -1,7 +1,8 @@
-import { Column, Entity, OneToOne } from 'typeorm';
+import { Column, Entity, OneToOne, ManyToOne, JoinColumn } from 'typeorm';
 
 import { BaseEntity } from './base.entity';
 import { BookingEntity } from './booking.entity';
+import { UserEntity } from './user.entity';
 
 @Entity({ name: 'order' })
 export class OrderEntity extends BaseEntity {
@@ -28,6 +29,10 @@ export class OrderEntity extends BaseEntity {
     nullable: false,
   })
   effectiveDate: Date;
+
+  @ManyToOne(() => UserEntity, (user) => user.orders)
+  @JoinColumn({ name: 'user_id' })
+  user: UserEntity;
 
   @OneToOne(() => BookingEntity, (booking) => booking.order)
   booking: BookingEntity;

@@ -1,4 +1,4 @@
-import { Entity, Column, ManyToOne } from 'typeorm';
+import { Entity, Column, ManyToOne, JoinColumn } from 'typeorm';
 
 import { BaseEntity } from './base.entity';
 import { PropertyEntity } from './property.entity';
@@ -12,8 +12,12 @@ export class AvailabilityEntity extends BaseEntity {
   })
   date: string;
 
+  @Column({ default: true, name: 'is_available' })
+  isAvailable: boolean;
+
   @ManyToOne(() => PropertyEntity, (property) => property.availabilities, {
     onDelete: 'CASCADE',
   })
+  @JoinColumn({ name: 'property_id' })
   property: PropertyEntity;
 }
