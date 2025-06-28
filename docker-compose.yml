@@ -29,6 +29,12 @@ services:
       context: .
       dockerfile: apps/main/Dockerfile.dev
     tty: true
+    env_file:
+      - ./apps/main/stage.development.env
+    volumes:
+      - .:/usr/src/app # detect if there are any files changes to reload the app
+      - /usr/src/app/node_modules # re-use node_modules inside the container
+    restart: unless-stopped
     depends_on:
       mysql-db:
         condition: service_healthy
