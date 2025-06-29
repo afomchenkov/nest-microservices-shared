@@ -15,7 +15,7 @@ ENV NX_INTERACTIVE=false
 ENV NX_SKIP_NX_CACHE=true
 ENV CI=true
 
-RUN npm install --verbose
+RUN npm install
 
 COPY libs/core ./libs/core
 

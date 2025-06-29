@@ -1,4 +1,7 @@
-FROM node:22-alpine AS dependencies
+FROM node:23 AS dependencies
+
+# Update and install security patches
+RUN apt-get update && apt-get upgrade -y && apt-get clean
 
 WORKDIR /usr/src/app
 
@@ -21,7 +24,7 @@ COPY . .
 
 RUN npm build
 
-FROM node:22-alpine AS production
+FROM node:23 AS production
 
 WORKDIR /usr/src/app
 

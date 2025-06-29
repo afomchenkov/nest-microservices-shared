@@ -1,4 +1,7 @@
-FROM node:22-alpine
+FROM node:23
+
+# Update and install security patches
+RUN apt-get update && apt-get upgrade -y && apt-get clean
 
 WORKDIR /usr/src/app
 
@@ -8,6 +11,8 @@ COPY tsconfig*.json ./
 
 COPY apps/main/project.json ./apps/main/
 COPY libs/core/project.json ./libs/core/
+
+ENV NX_DAEMON=false
 
 RUN npm install
 

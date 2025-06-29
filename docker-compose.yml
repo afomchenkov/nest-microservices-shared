@@ -53,24 +53,26 @@ services:
     networks:
       - shared-network
 
-  # main-service:
-  #   image: main-service:dev
-  #   container_name: main-service
-  #   build:
-  #     context: .
-  #     dockerfile: apps/main/Dockerfile.dev
-  #   tty: true
-  #   env_file:
-  #     - ./apps/main/stage.development.env
-  #   # volumes:
-  #   #   - .:/usr/src/app
-  #   #   - node_modules:/usr/src/app/node_modules
-  #   restart: unless-stopped
-  #   depends_on:
-  #     migrations:
-  #       condition: service_completed_successfully
-  #   networks:
-  #     - shared-network
+  main-service:
+    image: main-service:dev
+    container_name: main-service
+    build:
+      context: .
+      dockerfile: apps/main/Dockerfile.dev
+    tty: true
+    env_file:
+      - ./apps/main/stage.development.env
+    # volumes:
+    #   - .:/usr/src/app
+    #   - node_modules:/usr/src/app/node_modules
+    restart: unless-stopped
+    depends_on:
+      migrations:
+        condition: service_completed_successfully
+    networks:
+      - shared-network
+    tmpfs:
+      - /tmp
 
   # service-a:
   #   image: service-a:dev
