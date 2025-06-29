@@ -8,10 +8,10 @@ export class CreateUserTable1751188254234 implements MigrationInterface {
         columns: [
           {
             name: 'id',
-            type: 'uuid',
+            type: 'char',
+            length: '36',
             isPrimary: true,
-            isGenerated: true,
-            generationStrategy: 'uuid',
+            isNullable: false,
           },
           {
             name: 'username',
@@ -43,7 +43,7 @@ export class CreateUserTable1751188254234 implements MigrationInterface {
           },
           {
             name: 'metadata',
-            type: 'jsonb',
+            type: 'json',
             isNullable: true,
             default: null,
           },

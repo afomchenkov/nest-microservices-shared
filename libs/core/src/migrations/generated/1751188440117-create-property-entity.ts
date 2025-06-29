@@ -2,7 +2,7 @@ import {
   MigrationInterface,
   QueryRunner,
   Table,
-  TableForeignKey,
+  // TableForeignKey,
 } from 'typeorm';
 
 export class CreatePropertyEntity1751188440117 implements MigrationInterface {
@@ -13,10 +13,10 @@ export class CreatePropertyEntity1751188440117 implements MigrationInterface {
         columns: [
           {
             name: 'id',
-            type: 'uuid',
+            type: 'char',
+            length: '36',
             isPrimary: true,
-            isGenerated: true,
-            generationStrategy: 'uuid',
+            isNullable: false,
           },
           {
             name: 'name',
@@ -42,22 +42,23 @@ export class CreatePropertyEntity1751188440117 implements MigrationInterface {
           },
           {
             name: 'amenities',
-            type: 'jsonb',
+            type: 'json',
             isNullable: true,
           },
           {
             name: 'to_know',
-            type: 'jsonb',
+            type: 'json',
             isNullable: true,
           },
           {
             name: 'owner_id',
-            type: 'uuid',
+            type: 'char',
+            length: '36',
             isNullable: false,
           },
           {
             name: 'metadata',
-            type: 'jsonb',
+            type: 'json',
             isNullable: true,
             default: null,
           },
@@ -82,24 +83,24 @@ export class CreatePropertyEntity1751188440117 implements MigrationInterface {
       true,
     );
 
-    await queryRunner.createForeignKey(
-      'property',
-      new TableForeignKey({
-        columnNames: ['owner_id'],
-        referencedTableName: 'user',
-        referencedColumnNames: ['id'],
-        onDelete: 'NO ACTION',
-      }),
-    );
+    // await queryRunner.createForeignKey(
+    //   'property',
+    //   new TableForeignKey({
+    //     columnNames: ['owner_id'],
+    //     referencedTableName: 'user',
+    //     referencedColumnNames: ['id'],
+    //     onDelete: 'NO ACTION',
+    //   }),
+    // );
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    const table = await queryRunner.getTable('property');
-    if (table) {
-      for (const fk of table.foreignKeys) {
-        await queryRunner.dropForeignKey('property', fk);
-      }
-    }
+    // const table = await queryRunner.getTable('property');
+    // if (table) {
+    //   for (const fk of table.foreignKeys) {
+    //     await queryRunner.dropForeignKey('property', fk);
+    //   }
+    // }
     await queryRunner.dropTable('property');
   }
 }

@@ -34,6 +34,6 @@ export class BaseEntity extends _BaseEntity {
   @DeleteDateColumn()
   deletedAt: Date;
 
-  @Column({ name: 'metadata', type: 'jsonb', nullable: true })
+  @Column({ name: 'metadata', type: 'json', nullable: true })
   metadata: object;
 }

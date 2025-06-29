@@ -29,10 +29,10 @@ export class PropertyEntity extends BaseEntity {
   @Column({ name: 'country' })
   country: string;
 
-  @Column({ name: 'amenities', type: 'jsonb', nullable: true })
+  @Column({ name: 'amenities', type: 'json', nullable: true })
   amenities: object;
 
-  @Column({ name: 'to_know', type: 'jsonb', nullable: true })
+  @Column({ name: 'to_know', type: 'json', nullable: true })
   toKnow: object;
 
   @ManyToOne(() => UserEntity, (user) => user.properties)

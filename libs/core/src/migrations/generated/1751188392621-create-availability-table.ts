@@ -2,7 +2,7 @@ import {
   MigrationInterface,
   QueryRunner,
   Table,
-  TableForeignKey,
+  // TableForeignKey,
 } from 'typeorm';
 
 export class CreateAvailabilityTable1751188392621
@@ -15,10 +15,10 @@ export class CreateAvailabilityTable1751188392621
         columns: [
           {
             name: 'id',
-            type: 'uuid',
+            type: 'char',
+            length: '36',
             isPrimary: true,
-            isGenerated: true,
-            generationStrategy: 'uuid',
+            isNullable: false,
           },
           {
             name: 'date',
@@ -32,12 +32,13 @@ export class CreateAvailabilityTable1751188392621
           },
           {
             name: 'property_id',
-            type: 'uuid',
+            type: 'char',
+            length: '36',
             isNullable: false,
           },
           {
             name: 'metadata',
-            type: 'jsonb',
+            type: 'json',
             isNullable: true,
             default: null,
           },
@@ -62,25 +63,25 @@ export class CreateAvailabilityTable1751188392621
       true,
     );
 
-    await queryRunner.createForeignKey(
-      'availability',
-      new TableForeignKey({
-        columnNames: ['property_id'],
-        referencedTableName: 'property',
-        referencedColumnNames: ['id'],
-        onDelete: 'CASCADE',
-      }),
-    );
+    // await queryRunner.createForeignKey(
+    //   'availability',
+    //   new TableForeignKey({
+    //     columnNames: ['property_id'],
+    //     referencedTableName: 'property',
+    //     referencedColumnNames: ['id'],
+    //     onDelete: 'CASCADE',
+    //   }),
+    // );
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    const table = await queryRunner.getTable('availability');
-    const foreignKey = table.foreignKeys.find(
-      (fk) => fk.columnNames.indexOf('property_id') !== -1,
-    );
-    if (foreignKey) {
-      await queryRunner.dropForeignKey('availability', foreignKey);
-    }
+    // const table = await queryRunner.getTable('availability');
+    // const foreignKey = table.foreignKeys.find(
+    //   (fk) => fk.columnNames.indexOf('property_id') !== -1,
+    // );
+    // if (foreignKey) {
+    //   await queryRunner.dropForeignKey('availability', foreignKey);
+    // }
     await queryRunner.dropTable('availability');
   }
 }

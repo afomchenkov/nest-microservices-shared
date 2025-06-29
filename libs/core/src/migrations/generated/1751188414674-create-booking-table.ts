@@ -2,7 +2,7 @@ import {
   MigrationInterface,
   QueryRunner,
   Table,
-  TableForeignKey,
+  // TableForeignKey,
 } from 'typeorm';
 
 export class CreateBookingTable1751188414674 implements MigrationInterface {
@@ -13,10 +13,10 @@ export class CreateBookingTable1751188414674 implements MigrationInterface {
         columns: [
           {
             name: 'id',
-            type: 'uuid',
+            type: 'char',
+            length: '36',
             isPrimary: true,
-            isGenerated: true,
-            generationStrategy: 'uuid',
+            isNullable: false,
           },
           {
             name: 'title',
@@ -47,22 +47,25 @@ export class CreateBookingTable1751188414674 implements MigrationInterface {
           },
           {
             name: 'property_id',
-            type: 'uuid',
+            type: 'char',
+            length: '36',
             isNullable: false,
           },
           {
             name: 'tenant_id',
-            type: 'uuid',
+            type: 'char',
+            length: '36',
             isNullable: false,
           },
           {
             name: 'order_id',
-            type: 'uuid',
-            isNullable: true,
+            type: 'char',
+            length: '36',
+            isNullable: false,
           },
           {
             name: 'metadata',
-            type: 'jsonb',
+            type: 'json',
             isNullable: true,
             default: null,
           },
@@ -87,35 +90,35 @@ export class CreateBookingTable1751188414674 implements MigrationInterface {
       true,
     );
 
-    await queryRunner.createForeignKeys('booking', [
-      new TableForeignKey({
-        columnNames: ['property_id'],
-        referencedTableName: 'property',
-        referencedColumnNames: ['id'],
-        onDelete: 'CASCADE',
-      }),
-      new TableForeignKey({
-        columnNames: ['tenant_id'],
-        referencedTableName: 'user',
-        referencedColumnNames: ['id'],
-        onDelete: 'CASCADE',
-      }),
-      new TableForeignKey({
-        columnNames: ['order_id'],
-        referencedTableName: 'order',
-        referencedColumnNames: ['id'],
-        onDelete: 'SET NULL',
-      }),
-    ]);
+    // await queryRunner.createForeignKeys('booking', [
+    //   new TableForeignKey({
+    //     columnNames: ['property_id'],
+    //     referencedTableName: 'property',
+    //     referencedColumnNames: ['id'],
+    //     onDelete: 'CASCADE',
+    //   }),
+    //   new TableForeignKey({
+    //     columnNames: ['tenant_id'],
+    //     referencedTableName: 'user',
+    //     referencedColumnNames: ['id'],
+    //     onDelete: 'CASCADE',
+    //   }),
+    //   new TableForeignKey({
+    //     columnNames: ['order_id'],
+    //     referencedTableName: 'order',
+    //     referencedColumnNames: ['id'],
+    //     onDelete: 'SET NULL',
+    //   }),
+    // ]);
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    const table = await queryRunner.getTable('booking');
-    if (table) {
-      for (const fk of table.foreignKeys) {
-        await queryRunner.dropForeignKey('booking', fk);
-      }
-    }
+    // const table = await queryRunner.getTable('booking');
+    // if (table) {
+    //   for (const fk of table.foreignKeys) {
+    //     await queryRunner.dropForeignKey('booking', fk);
+    //   }
+    // }
     await queryRunner.dropTable('booking');
   }
 }

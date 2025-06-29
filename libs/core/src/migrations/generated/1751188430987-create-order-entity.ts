@@ -2,7 +2,7 @@ import {
   MigrationInterface,
   QueryRunner,
   Table,
-  TableForeignKey,
+  // TableForeignKey,
 } from 'typeorm';
 
 export class CreateOrderEntity1751188430987 implements MigrationInterface {
@@ -13,10 +13,10 @@ export class CreateOrderEntity1751188430987 implements MigrationInterface {
         columns: [
           {
             name: 'id',
-            type: 'uuid',
+            type: 'char',
+            length: '36',
             isPrimary: true,
-            isGenerated: true,
-            generationStrategy: 'uuid',
+            isNullable: false,
           },
           {
             name: 'price',
@@ -40,12 +40,13 @@ export class CreateOrderEntity1751188430987 implements MigrationInterface {
           },
           {
             name: 'user_id',
-            type: 'uuid',
+            type: 'char',
+            length: '36',
             isNullable: false,
           },
           {
             name: 'metadata',
-            type: 'jsonb',
+            type: 'json',
             isNullable: true,
             default: null,
           },
@@ -70,24 +71,24 @@ export class CreateOrderEntity1751188430987 implements MigrationInterface {
       true,
     );
 
-    await queryRunner.createForeignKey(
-      'order',
-      new TableForeignKey({
-        columnNames: ['user_id'],
-        referencedTableName: 'user',
-        referencedColumnNames: ['id'],
-        onDelete: 'NO ACTION',
-      }),
-    );
+    // await queryRunner.createForeignKey(
+    //   'order',
+    //   new TableForeignKey({
+    //     columnNames: ['user_id'],
+    //     referencedTableName: 'user',
+    //     referencedColumnNames: ['id'],
+    //     onDelete: 'NO ACTION',
+    //   }),
+    // );
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    const table = await queryRunner.getTable('order');
-    if (table) {
-      for (const fk of table.foreignKeys) {
-        await queryRunner.dropForeignKey('order', fk);
-      }
-    }
+    // const table = await queryRunner.getTable('order');
+    // if (table) {
+    //   for (const fk of table.foreignKeys) {
+    //     await queryRunner.dropForeignKey('order', fk);
+    //   }
+    // }
     await queryRunner.dropTable('order');
   }
 }
