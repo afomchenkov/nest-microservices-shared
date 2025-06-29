@@ -20,6 +20,4 @@ COPY . .
 
 EXPOSE 3001
 
-# CMD ["npx", "nx", "serve", "main", "--watch"]
-
 CMD ["npm", "run", "start:main"]
