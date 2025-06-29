@@ -1,18 +1,23 @@
-FROM node:23
+FROM node:23-bullseye
 
 # Update and install security patches
 RUN apt-get update && apt-get upgrade -y && apt-get clean
 
 WORKDIR /usr/src/app
 
-RUN apk add --no-cache bash curl dos2unix
+COPY package*.json ./
+COPY nx.json ./
+COPY tsconfig*.json ./
 
-COPY service/package.json ./
+COPY apps/serviceB/project.json ./apps/serviceB/
+COPY libs/core/project.json ./libs/core/
 
 ENV NX_DAEMON=false
 
 RUN npm install
 
-COPY service ./
+COPY . .
 
-ENTRYPOINT [ "npm", "run", "start:dev" ]
+EXPOSE 3003
+
+CMD ["npm", "run", "start:service-b"]
