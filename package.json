@@ -29,7 +29,8 @@
     "test:debug:watch": "nx run-many --target test --all --parallel",
     "migration:run": "nx run core:migrate",
     "migration:revert": "npm run migration:revert",
-    "migration:generate": "typeorm migration:generate -d libs/core/src/migrations/data-source.ts libs/core/src/migrations/generated"
+    "migration:generate": "typeorm migration:generate -d libs/core/src/migrations/data-source.ts libs/core/src/migrations/generated",
+    "postinstall": "echo 'Skipping nx postinstall for debug'"
   },
   "engines": {
     "node": ">=22.0.0 <24.0.0"
