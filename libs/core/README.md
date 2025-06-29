@@ -29,3 +29,10 @@ Run `nx test core` to execute the unit tests via [Jest](https://jestjs.io).
 - Conversion flow:
 DTO <--> Domain Model <--> Entity
 ```
+
+```bash
+# stop all containers
+docker stop $(docker ps -q)
+# stop/remove all containers
+docker rm -f $(docker ps -aq)
+```

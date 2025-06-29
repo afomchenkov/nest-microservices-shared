@@ -1,27 +1,34 @@
-FROM node:22-alpine AS build
-
-ARG NODE_ENV=development
-ENV NODE_ENV=${NODE_ENV}
+FROM node:22-alpine AS dependencies
 
 WORKDIR /usr/src/app
 
+RUN apk add --no-cache bash curl dos2unix
+
 COPY package*.json ./
+COPY nx.json ./
+COPY tsconfig*.json ./
+
+COPY apps/serviceB/project.json ./apps/serviceB/
+COPY libs/core/project.json ./libs/core/
+
 RUN npm install
 
-COPY . .
-RUN npm run build
-
-FROM node:22-alpine as production
-
-ARG NODE_ENV=production
-ENV NODE_ENV=${NODE_ENV}
+FROM dependencies AS build
 
 WORKDIR /usr/src/app
 
-COPY package*.json ./
+COPY . .
 
-RUN npm install --only=production
+RUN npm build
+
+FROM node:22-alpine AS production
+
+WORKDIR /usr/src/app
 
 COPY . .
+
 COPY --from=build /usr/src/app/dist ./dist
-CMD ["node", "dist/apps/serviceB/main"]
+
+ENTRYPOINT [ "npm", "run", "start:prod:service-b" ]
+
+EXPOSE 3003
