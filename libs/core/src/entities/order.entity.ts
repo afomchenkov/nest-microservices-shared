@@ -25,7 +25,7 @@ export class OrderEntity extends BaseEntity {
 
   @Column({
     name: 'effective_date',
-    type: 'timestamptz',
+    type: 'timestamp',
     nullable: false,
   })
   effectiveDate: Date;

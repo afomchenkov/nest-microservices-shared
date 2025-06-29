@@ -7,7 +7,7 @@ import { PropertyEntity } from './property.entity';
 export class AvailabilityEntity extends BaseEntity {
   @Column({
     name: 'date',
-    type: 'timestamptz',
+    type: 'timestamp',
     default: () => 'CURRENT_TIMESTAMP',
   })
   date: string;

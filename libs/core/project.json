@@ -12,6 +12,12 @@
   },
   "tags": [],
   "targets": {
+    "migrate": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "ts-node -r tsconfig-paths/register libs/core/src/migrations/run-migrations.ts"
+      }
+    },
     "build": {
       "executor": "@nx/js:tsc",
       "outputs": ["{options.outputPath}"],

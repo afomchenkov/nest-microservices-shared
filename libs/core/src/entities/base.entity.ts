@@ -13,14 +13,14 @@ export class BaseEntity extends _BaseEntity {
 
   @CreateDateColumn({
     name: 'created_at',
-    type: 'timestamptz',
+    type: 'timestamp',
     default: () => 'CURRENT_TIMESTAMP',
   })
   createdAt: Date;
 
   @UpdateDateColumn({
     name: 'updated_at',
-    type: 'timestamptz',
+    type: 'timestamp',
     default: () => 'CURRENT_TIMESTAMP',
   })
   updatedAt: Date;
@@ -28,7 +28,7 @@ export class BaseEntity extends _BaseEntity {
   // keep soft delete
   @CreateDateColumn({
     name: 'deleted_at',
-    type: 'timestamptz',
+    type: 'timestamp',
     default: () => 'CURRENT_TIMESTAMP',
   })
   @DeleteDateColumn()

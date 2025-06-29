@@ -31,14 +31,14 @@ export class BookingEntity extends BaseEntity {
 
   @Column({
     name: 'date_from',
-    type: 'timestamptz',
+    type: 'timestamp',
     default: () => 'CURRENT_TIMESTAMP',
   })
   dateFrom: string;
 
   @Column({
     name: 'date_to',
-    type: 'timestamptz',
+    type: 'timestamp',
     default: () => 'CURRENT_TIMESTAMP',
   })
   dateTo: string;
