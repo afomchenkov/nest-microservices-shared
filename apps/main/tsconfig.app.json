@@ -10,6 +10,9 @@
     "declarationMap": true,
     "sourceMap": true,
     "composite": true,
+    "paths": {
+      "@shared/core": ["libs/core/index.ts"]
+    }
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules", "dist", "test", "**/*spec.ts"]

@@ -1,11 +1,9 @@
-FROM node:23 AS dependencies
+FROM node:23-bullseye AS dependencies
 
 # Update and install security patches
 RUN apt-get update && apt-get upgrade -y && apt-get clean
 
-WORKDIR /usr/src/app
-
-RUN apk add --no-cache bash curl dos2unix
+WORKDIR /usr/src
 
 COPY package*.json ./
 COPY nx.json ./
@@ -18,19 +16,19 @@ RUN npm install
 
 FROM dependencies AS build
 
-WORKDIR /usr/src/app
+WORKDIR /usr/src
 
 COPY . .
 
-RUN npm build
+RUN npm run build:service-a
 
-FROM node:23 AS production
+FROM node:23-bullseye AS production
 
-WORKDIR /usr/src/app
+WORKDIR /usr/src
 
 COPY . .
 
-COPY --from=build /usr/src/app/dist ./dist
+COPY --from=build /usr/src/dist ./dist
 
 ENTRYPOINT [ "npm", "run", "start:prod:service-a" ]
 

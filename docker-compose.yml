@@ -58,13 +58,13 @@ services:
     container_name: main-service
     build:
       context: .
-      dockerfile: apps/main/Dockerfile.dev
+      dockerfile: apps/main/Dockerfile
     tty: true
     env_file:
-      - ./apps/main/stage.development.env
+      - ./apps/main/stage.production.env
     # volumes:
-    #   - .:/usr/src/app
-    #   - node_modules:/usr/src/app/node_modules
+    #   - .:/usr/src
+    #   - /usr/src/node_modules
     restart: unless-stopped
     depends_on:
       migrations:
@@ -108,4 +108,3 @@ networks:
 volumes:
   shared-db-data:
     name: shared-db-data
-  # node_modules:
