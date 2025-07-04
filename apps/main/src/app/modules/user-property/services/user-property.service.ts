@@ -9,4 +9,8 @@ export class UserPropertyService {
   async getUserProperties(): Promise<PropertyEntity[]> {
     return this.userPropertyRepository.findAll();
   }
+
+  async createUser(payload: any) {
+    return this.userPropertyRepository.create(payload);
+  }
 }

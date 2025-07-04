@@ -1,6 +1,5 @@
 const { NxAppWebpackPlugin } = require('@nx/webpack/app-plugin');
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
-// const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 const { join } = require('path');
 
 module.exports = {
@@ -12,7 +11,7 @@ module.exports = {
     extensions: ['.ts', '.js', '.json'],
     plugins: [
       new TsconfigPathsPlugin({
-        configFile: join(__dirname, '../../tsconfig.build.json'),
+        configFile: join(__dirname, './tsconfig.app.json'),
       }),
     ],
     alias: {
@@ -36,12 +35,11 @@ module.exports = {
     new NxAppWebpackPlugin({
       target: 'node',
       main: './src/main.ts',
-      // compiler: 'tsc',
+      compiler: 'tsc',
       tsConfig: './tsconfig.app.json',
       assets: ['./src/assets', './src/README.md'],
       optimization: false,
       outputHashing: 'none',
     }),
-    // new BundleAnalyzerPlugin(),
   ],
 };

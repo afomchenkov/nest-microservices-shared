@@ -42,7 +42,7 @@ services:
     container_name: phpmyadmin
     restart: unless-stopped
     ports:
-      - "8080:80"
+      - 8080:80
     environment:
       PMA_HOST: mysql-db
       PMA_PORT: 3306
@@ -62,9 +62,11 @@ services:
     tty: true
     env_file:
       - ./apps/main/stage.production.env
-    # volumes:
-    #   - .:/usr/src
-    #   - /usr/src/node_modules
+    ports:
+      - 3001:3001
+    volumes:
+      - .:/usr/src
+      - /usr/src/node_modules
     restart: unless-stopped
     depends_on:
       migrations:

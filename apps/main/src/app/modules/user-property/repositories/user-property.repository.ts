@@ -1,19 +1,21 @@
 import { Injectable } from '@nestjs/common';
 import { Repository } from 'typeorm';
+import { InjectRepository } from '@nestjs/typeorm';
 import { PropertyEntity, Property } from '@shared/core';
 
 @Injectable()
 export class UserPropertyRepository {
   constructor(
+    @InjectRepository(PropertyEntity)
     private readonly property: Repository<PropertyEntity>,
   ) {}
-  
+
   async findAll(): Promise<PropertyEntity[]> {
     return this.property.find();
   }
 
   async findOne(id: string): Promise<PropertyEntity> {
-    return this.property.findOne({ where: { id }});
+    return this.property.findOne({ where: { id } });
   }
 
   async remove(id: number): Promise<void> {
