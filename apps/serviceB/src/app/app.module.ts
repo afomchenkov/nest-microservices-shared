@@ -3,14 +3,27 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { ScheduleModule } from '@nestjs/schedule';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { DataSource } from 'typeorm';
-import { configValidationSchema, DbModule } from '@shared/core';
-
+import {
+  configValidationSchema,
+  UserEntity,
+  PropertyEntity,
+  OrderEntity,
+  BookingEntity,
+  AvailabilityEntity,
+} from '@shared/core';
 import { AppController } from './controllers';
 import { AppService } from './services';
 import { BookingRepository } from './repositories';
 
 @Module({
   imports: [
+    TypeOrmModule.forFeature([
+      AvailabilityEntity,
+      UserEntity,
+      PropertyEntity,
+      OrderEntity,
+      BookingEntity,
+    ]),
     ScheduleModule.forRoot(),
     ConfigModule.forRoot({
       envFilePath: [`stage.${process.env.NODE_ENV}.env`],
@@ -37,7 +50,6 @@ import { BookingRepository } from './repositories';
         return dataSource;
       },
     }),
-    DbModule,
   ],
   controllers: [AppController],
   providers: [AppService, BookingRepository],
