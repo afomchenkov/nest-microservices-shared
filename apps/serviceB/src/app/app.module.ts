@@ -1,3 +1,4 @@
+import * as path from 'path';
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { ScheduleModule } from '@nestjs/schedule';
@@ -15,6 +16,8 @@ import { AppController } from './controllers';
 import { AppService } from './services';
 import { BookingRepository } from './repositories';
 
+const ENV = process.env.NODE_ENV;
+
 @Module({
   imports: [
     TypeOrmModule.forFeature([
@@ -26,7 +29,8 @@ import { BookingRepository } from './repositories';
     ]),
     ScheduleModule.forRoot(),
     ConfigModule.forRoot({
-      envFilePath: [`stage.${process.env.NODE_ENV}.env`],
+      envFilePath: path.resolve(__dirname, `stage.${ENV}.env`),
+      isGlobal: true,
       validationSchema: configValidationSchema,
     }),
     TypeOrmModule.forRootAsync({

@@ -1,0 +1,20 @@
+openapi: 3.0.0
+paths:
+  /api/v1/service-b/bookings:
+    get:
+      operationId: AppController_getBookings
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+        - App
+info:
+  title: Service B
+  description: Service B API documentation
+  version: 0.0.1
+  contact: {}
+tags: []
+servers: []
+components:
+  schemas: {}

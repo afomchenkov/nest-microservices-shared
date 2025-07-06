@@ -9,6 +9,8 @@ import { format, transports } from 'winston';
 import { dump } from 'js-yaml';
 import { AppModule } from './app/app.module';
 
+const ENV = process.env.NODE_ENV;
+
 const setupSwagger = async (app: INestApplication): Promise<void> => {
   const documentBuilder = new DocumentBuilder()
     .setTitle('Service B')
@@ -23,8 +25,8 @@ const setupSwagger = async (app: INestApplication): Promise<void> => {
   });
 
   // generate new doc in dev mode
-  if (process.env.NODE_ENV === 'development') {
-    await fs.writeFile('swagger.yaml', dump(document));
+  if (ENV === 'development') {
+    await fs.writeFile('swagger/service-b.swagger.yaml', dump(document));
   }
 };
 
@@ -33,10 +35,10 @@ async function bootstrap() {
     bufferLogs: true,
     cors: true,
     logger: WinstonModule.createLogger({
-      level: ['development'].includes(process.env.NODE_ENV) ? 'debug' : 'info',
+      level: ['development'].includes(ENV) ? 'debug' : 'info',
       transports: [
         new transports.Console({
-          format: ['development'].includes(process.env.NODE_ENV)
+          format: ['development'].includes(ENV)
             ? format.combine(
               format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss.SSS' }),
               format.ms(),
@@ -49,7 +51,7 @@ async function bootstrap() {
               const logFormat = {
                 hostname: hostname(),
                 app: process.env.APP_NAME,
-                environment: process.env.NODE_ENV,
+                environment: ENV,
                 level: msg.level,
                 msg: msg.message,
                 product: 'Service B',

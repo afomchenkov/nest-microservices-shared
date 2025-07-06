@@ -1,11 +1,13 @@
 
 import { Injectable } from '@nestjs/common';
 import { Repository } from 'typeorm';
+import { InjectRepository } from '@nestjs/typeorm';
 import { BookingEntity, Booking } from '@shared/core';
 
 @Injectable()
 export class BookingRepository {
   constructor(
+    @InjectRepository(BookingEntity)
     private readonly booking: Repository<BookingEntity>,
   ) {}
   
