@@ -1,4 +1,4 @@
-name: shared-microservices
+name: shared-microservices-dev
 
 services:
   mysql-db:
@@ -13,7 +13,7 @@ services:
       MYSQL_PASSWORD: shared_user_123
       MYSQL_ROOT_PASSWORD: shared_user_123
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      test: ['CMD', 'mysqladmin', 'ping', '-h', 'localhost']
       interval: 3s
       timeout: 5s
       retries: 6
@@ -35,7 +35,7 @@ services:
         condition: service_healthy
     networks:
       - shared-network
-    restart: "no"
+    restart: 'no'
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
@@ -52,56 +52,6 @@ services:
         condition: service_healthy
     networks:
       - shared-network
-
-  main-service:
-    image: main-service:dev
-    container_name: main-service
-    build:
-      context: .
-      dockerfile: apps/main/Dockerfile
-    tty: true
-    stdin_open: true
-    env_file:
-      - ./apps/main/stage.production.env
-    ports:
-      - 3001:3001
-    volumes:
-      - .:/usr/src
-      - /usr/src/node_modules
-    restart: unless-stopped
-    depends_on:
-      migrations:
-        condition: service_completed_successfully
-    networks:
-      - shared-network
-    tmpfs:
-      - /tmp
-
-  # service-a:
-  #   image: service-a:dev
-  #   container_name: service-a
-  #   build:
-  #     context: .
-  #     dockerfile: apps/serviceA/Dockerfile.dev
-  #   tty: true
-  #   depends_on:
-  #     migrations:
-  #       condition: service_completed_successfully
-  #   networks:
-  #     - shared-network
-
-  # service-b:
-  #   image: service-b:dev
-  #   container_name: service-b
-  #   build:
-  #     context: .
-  #     dockerfile: apps/serviceB/Dockerfile.dev
-  #   tty: true
-  #   depends_on:
-  #     migrations:
-  #       condition: service_completed_successfully
-  #   networks:
-  #     - shared-network
 
 networks:
   shared-network:

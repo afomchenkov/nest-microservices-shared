@@ -13,6 +13,7 @@
     "build:service-a": "npx nx build serviceA",
     "build:service-b": "npx nx build serviceB",
     "start": "nx run-many --target serve --all --parallel",
+    "start:docker": "docker-compose -f docker-compose.dev.yml up --build",
     "start:main": "NODE_ENV=development nx run main:serve --configuration=development",
     "start:prod:main": "node dist/apps/main/main.js",
     "start:service-a": "nx run serviceA:serve --configuration=development",

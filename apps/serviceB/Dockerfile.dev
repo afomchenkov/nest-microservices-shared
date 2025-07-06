@@ -9,15 +9,20 @@ COPY package*.json ./
 COPY nx.json ./
 COPY tsconfig*.json ./
 
+# App and lib configs
 COPY apps/serviceB/project.json ./apps/serviceB/
 COPY libs/core/project.json ./libs/core/
 
-ENV NX_DAEMON=false
+# App and lib source code
+COPY apps/serviceB ./apps/serviceB
+COPY libs/core ./libs/core
+
+ENV NX_DAEMON false
 
 RUN npm install
 
 COPY . .
 
-EXPOSE 3003
+EXPOSE 3001
 
 CMD ["npm", "run", "start:service-b"]

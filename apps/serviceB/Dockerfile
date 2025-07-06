@@ -9,8 +9,13 @@ COPY package*.json ./
 COPY nx.json ./
 COPY tsconfig*.json ./
 
+# App and lib configs
 COPY apps/serviceB/project.json ./apps/serviceB/
 COPY libs/core/project.json ./libs/core/
+
+# App and lib source code
+COPY apps/serviceB ./apps/serviceB
+COPY libs/core ./libs/core
 
 RUN npm install
 
@@ -20,6 +25,8 @@ WORKDIR /usr/src
 
 COPY . .
 
+ENV NX_DAEMON false
+
 RUN npm run build:service-b
 
 FROM node:23-bullseye AS production
@@ -28,8 +35,11 @@ WORKDIR /usr/src
 
 COPY . .
 
+COPY --from=dependencies /usr/src/node_modules ./node_modules
 COPY --from=build /usr/src/dist ./dist
 
-ENTRYPOINT [ "npm", "run", "start:prod:service-b" ]
+USER node
 
-EXPOSE 3003
+EXPOSE 3001
+
+ENTRYPOINT [ "npm", "run", "start:prod:service-b" ]
