@@ -1,30 +1,28 @@
 import { PropertyEntity } from '../entities';
 import { Property } from '../domain';
-import { PropertyDto } from '../dtos';
+import { PropertyDto, CreatePropertyDto } from '../dtos';
 
 export class PropertyMapper {
-  static toDomain(entity: PropertyEntity): Property {
+  static toDomain(entity: CreatePropertyDto): Partial<Property> {
     const {
-      id,
       name,
       description,
       address,
       country,
       amenities,
-      toKnow,
-      createdAt,
-      updatedAt,
+      to_know,
+      owner_id,
     } = entity;
     return {
-      id,
       name,
       description,
       address,
       country,
       amenities,
-      toKnow,
-      createdAt,
-      updatedAt,
+      toKnow: to_know,
+      owner: {
+        id: owner_id,
+      },
     };
   }
 
@@ -47,7 +45,7 @@ export class PropertyMapper {
       address,
       country,
       amenities,
-      toKnow,
+      to_know: toKnow,
       created_at: createdAt.toISOString(),
       updated_at: updatedAt.toISOString(),
     };

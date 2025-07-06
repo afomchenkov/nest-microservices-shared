@@ -1,0 +1,293 @@
+openapi: 3.0.0
+paths:
+  /api/v1:
+    get:
+      operationId: AppController_getData
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags: &ref_3
+        - main
+  /api/v1/healthcheck:
+    get:
+      operationId: health-liveness
+      parameters: []
+      responses:
+        '200':
+          description: The Health Check is successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: ok
+                  info:
+                    type: object
+                    example: &ref_0
+                      database: &ref_1
+                        status: up
+                    additionalProperties:
+                      type: object
+                      required:
+                        - status
+                      properties:
+                        status:
+                          type: string
+                      additionalProperties: true
+                    nullable: true
+                  error:
+                    type: object
+                    example: {}
+                    additionalProperties:
+                      type: object
+                      required:
+                        - status
+                      properties:
+                        status:
+                          type: string
+                      additionalProperties: true
+                    nullable: true
+                  details:
+                    type: object
+                    example: *ref_0
+                    additionalProperties:
+                      type: object
+                      required:
+                        - status
+                      properties:
+                        status:
+                          type: string
+                      additionalProperties: true
+        '503':
+          description: The Health Check is not successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: error
+                  info:
+                    type: object
+                    example: *ref_0
+                    additionalProperties:
+                      type: object
+                      required:
+                        - status
+                      properties:
+                        status:
+                          type: string
+                      additionalProperties: true
+                    nullable: true
+                  error:
+                    type: object
+                    example:
+                      redis: &ref_2
+                        status: down
+                        message: Could not connect
+                    additionalProperties:
+                      type: object
+                      required:
+                        - status
+                      properties:
+                        status:
+                          type: string
+                      additionalProperties: true
+                    nullable: true
+                  details:
+                    type: object
+                    example:
+                      database: *ref_1
+                      redis: *ref_2
+                    additionalProperties:
+                      type: object
+                      required:
+                        - status
+                      properties:
+                        status:
+                          type: string
+                      additionalProperties: true
+      summary: Get microservice liveness
+      tags: *ref_3
+  /api/v1/user-property:
+    get:
+      operationId: get-all-properties
+      parameters: []
+      responses:
+        '200':
+          description: Successful get all properties response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AllPropertiesDto'
+        '400':
+          description: Bad request
+        '500':
+          description: Internal server error
+      summary: Get properties
+      tags: &ref_4
+        - User Property
+    post:
+      operationId: create-new-property
+      parameters: []
+      requestBody:
+        required: true
+        description: Payload to create new property
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreatePropertyDto'
+      responses:
+        '201':
+          description: User property created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PropertyDto'
+        '400':
+          description: Bad request
+        '409':
+          description: Property with this name already exists
+        '500':
+          description: Internal server error
+      summary: Creates new property
+      tags: *ref_4
+info:
+  title: Service Main
+  description: Service Main API documentation
+  version: 0.0.1
+  contact: {}
+tags: []
+servers: []
+components:
+  schemas:
+    PropertyDto:
+      type: object
+      properties:
+        id:
+          type: string
+          nullable: false
+          description: Entity unique identifier
+          example: ce2c97af-17e4-4d85-8248-d7ba8b45527f
+          format: uuid
+        created_at:
+          type: string
+          nullable: false
+          description: Date of creation
+          example: '2023-01-01T00:00:00.000Z'
+        updated_at:
+          type: string
+          nullable: false
+          description: Date of update
+          example: '2023-01-01T00:00:00.000Z'
+        name:
+          type: string
+          description: Property name
+          nullable: false
+          example: Beautiful Beach House
+        description:
+          type: string
+          description: Property description
+          nullable: false
+          example: A lovely beach house with stunning ocean views.
+        address:
+          type: string
+          description: Property address
+          nullable: false
+          example: 123 Ocean Drive, Beach City, CA
+        country:
+          type: string
+          description: Property country
+          nullable: false
+          example: USA
+        amenities:
+          type: object
+          description: Property amenities
+          nullable: true
+          example:
+            wifi: true
+            pool: true
+            parking: false
+        to_know:
+          type: object
+          description: Property to know information
+          nullable: true
+          example:
+            checkInTime: 3 PM
+            checkOutTime: 11 AM
+            petPolicy: No pets allowed
+      required:
+        - id
+        - created_at
+        - updated_at
+        - name
+        - description
+        - address
+        - country
+    AllPropertiesDto:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/PropertyDto'
+        items_count:
+          type: number
+          description: Number of items
+          nullable: false
+      required:
+        - items_count
+    CreatePropertyDto:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Property name
+          nullable: false
+          example: Beautiful Beach House
+        description:
+          type: string
+          description: Property description
+          nullable: false
+          example: A lovely beach house with stunning ocean views.
+        address:
+          type: string
+          description: Property address
+          nullable: false
+          example: 123 Ocean Drive, Beach City, CA
+        country:
+          type: string
+          description: Property country
+          nullable: false
+          example: USA
+        amenities:
+          type: object
+          description: Property amenities
+          nullable: true
+          example:
+            wifi: true
+            pool: true
+            parking: false
+        to_know:
+          type: object
+          description: Property to know information
+          nullable: true
+          example:
+            checkInTime: 3 PM
+            checkOutTime: 11 AM
+            petPolicy: No pets allowed
+        owner_id:
+          type: string
+          description: Owner unique identifier
+          nullable: false
+          example: 81142c6a-50b8-4cd4-8ed6-bfda614103dd
+      required:
+        - name
+        - description
+        - address
+        - country
+        - owner_id

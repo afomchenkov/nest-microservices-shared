@@ -35,4 +35,6 @@ DTO <--> Domain Model <--> Entity
 docker stop $(docker ps -q)
 # stop/remove all containers
 docker rm -f $(docker ps -aq)
+# prune and remove volumes
+docker system prune -a --volumes -f
 ```

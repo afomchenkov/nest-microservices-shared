@@ -1,3 +1,4 @@
+import * as path from 'path';
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { ScheduleModule } from '@nestjs/schedule';
@@ -9,15 +10,18 @@ import { UserPropertyModule } from './modules/user-property';
 import { AppController } from './controllers/app.controller';
 import { AppService, HealthService, PingIndicatorService } from './services';
 
+const ENV = process.env.NODE_ENV;
+
 @Module({
   imports: [
+    ConfigModule.forRoot({
+      envFilePath: path.resolve(__dirname, `stage.${ENV}.env`),
+      isGlobal: true, // make config available globally
+      validationSchema: configValidationSchema,
+    }),
     UserPropertyModule,
     TerminusModule,
     ScheduleModule.forRoot(),
-    ConfigModule.forRoot({
-      envFilePath: [`stage.${process.env.NODE_ENV}.env`],
-      validationSchema: configValidationSchema,
-    }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
@@ -30,7 +34,7 @@ import { AppService, HealthService, PingIndicatorService } from './services';
           password: configService.get('DB_PASSWORD'),
           database: configService.get('DB_DATABASE'),
           autoLoadEntities: true,
-          synchronize: false, // important for production as this runs the migrations
+          synchronize: false,
         };
       },
       // dataSource receives the configured DataSourceOptions and returns a Promise<DataSource>.

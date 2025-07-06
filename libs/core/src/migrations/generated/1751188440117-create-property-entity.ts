@@ -17,6 +17,7 @@ export class CreatePropertyEntity1751188440117 implements MigrationInterface {
             length: '36',
             isPrimary: true,
             isNullable: false,
+            default: 'UUID()',
           },
           {
             name: 'name',

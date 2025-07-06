@@ -25,6 +25,8 @@ WORKDIR /usr/src
 
 COPY . .
 
+ENV NX_DAEMON false
+
 RUN npm run build:main
 
 FROM node:23-bullseye AS production

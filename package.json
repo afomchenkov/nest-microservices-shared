@@ -13,12 +13,11 @@
     "build:service-a": "npx nx build serviceA",
     "build:service-b": "npx nx build serviceB",
     "start": "nx run-many --target serve --all --parallel",
-    "start:main": "nx run main:serve",
-    "start:main:watch": "NX_DAEMON=false NODE_OPTIONS= nx serve main --watch",
+    "start:main": "NODE_ENV=development nx run main:serve --configuration=development",
     "start:prod:main": "node dist/apps/main/main.js",
-    "start:service-a": "nx run serviceA:serve",
+    "start:service-a": "nx run serviceA:serve --configuration=development",
     "start:prod:service-a": "node dist/serviceA/main.js",
-    "start:service-b": "nx run serviceB:serve",
+    "start:service-b": "nx run serviceB:serve --configuration=development",
     "start:prod:service-b": "node dist/serviceB/main.js",
     "typecheck": "nx run-many --target typecheck --all --parallel",
     "lint": "nx run-many --target lint --all --parallel",
@@ -30,8 +29,7 @@
     "test:debug:watch": "nx run-many --target test --all --parallel",
     "migration:run": "nx run core:migrate",
     "migration:revert": "npm run migration:revert",
-    "migration:generate": "typeorm migration:generate -d libs/core/src/migrations/data-source.ts libs/core/src/migrations/generated",
-    "postinstall": "echo 'Skipping nx postinstall for debug'"
+    "migration:generate": "typeorm migration:generate -d libs/core/src/migrations/data-source.ts libs/core/src/migrations/generated"
   },
   "engines": {
     "node": ">=22.0.0 <24.0.0"

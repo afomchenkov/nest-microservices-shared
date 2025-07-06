@@ -8,9 +8,7 @@
     "build": {
       "executor": "@nx/esbuild:esbuild",
       "cache": false,
-      "outputs": [
-        "{options.outputPath}"
-      ],
+      "outputs": ["{options.outputPath}"],
       "defaultConfiguration": "production",
       "options": {
         "platform": "node",
@@ -19,12 +17,28 @@
         "bundle": true,
         "main": "src/main.ts",
         "tsConfig": "apps/main/tsconfig.app.json",
-        "assets": ["./src/assets", "./README.md"],
+        "assets": [
+          {
+            "input": "apps/main",
+            "glob": "stage.development.env",
+            "output": "."
+          },
+          {
+            "glob": "**/*",
+            "input": "apps/main/src/assets",
+            "output": "assets"
+          },
+          "./README.md"
+        ],
+        
         "generatePackageJson": false,
         "esbuildConfig": "esbuild-config.js"
       },
       "configurations": {
-        "development": {},
+        "development": {
+          "generateLockfile": false,
+          "esbuildConfig": "esbuild-config.js"
+        },
         "production": {
           "generateLockfile": false,
           "esbuildConfig": "esbuild-config.js"
@@ -38,7 +52,7 @@
       "dependsOn": ["build"],
       "options": {
         "buildTarget": "main:build",
-        "runBuildTargetDependencies": false
+        "runBuildTargetDependencies": true
       },
       "configurations": {
         "development": {

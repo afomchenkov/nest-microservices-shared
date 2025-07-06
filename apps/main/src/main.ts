@@ -9,6 +9,8 @@ import { format, transports } from 'winston';
 import { dump } from 'js-yaml';
 import { AppModule } from './app/app.module';
 
+const ENV = process.env.NODE_ENV || 'development';
+
 const setupSwagger = async (app: INestApplication): Promise<void> => {
   const documentBuilder = new DocumentBuilder()
     .setTitle('Service Main')
@@ -23,7 +25,7 @@ const setupSwagger = async (app: INestApplication): Promise<void> => {
   });
 
   // generate new doc in dev mode
-  if (process.env.NODE_ENV === 'development') {
+  if (ENV === 'development') {
     await fs.writeFile('swagger.yaml', dump(document));
   }
 };
@@ -33,31 +35,31 @@ async function bootstrap() {
     bufferLogs: true,
     cors: true,
     logger: WinstonModule.createLogger({
-      level: ['development'].includes(process.env.NODE_ENV) ? 'debug' : 'info',
+      level: ['development'].includes(ENV) ? 'debug' : 'info',
       transports: [
         new transports.Console({
-          format: ['development'].includes(process.env.NODE_ENV)
+          format: ['development'].includes(ENV)
             ? format.combine(
-              format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss.SSS' }),
-              format.ms(),
-              utilities.format.nestLike('Service Main Dev', {
-                colors: true,
-                prettyPrint: true,
-              }),
-            )
+                format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss.SSS' }),
+                format.ms(),
+                utilities.format.nestLike('Service Main Dev', {
+                  colors: true,
+                  prettyPrint: true,
+                }),
+              )
             : format.printf((msg) => {
-              const logFormat = {
-                hostname: hostname(),
-                app: process.env.APP_NAME,
-                environment: process.env.NODE_ENV,
-                level: msg.level,
-                msg: msg.message,
-                product: 'Service Main',
-                time: new Date().toISOString(),
-              };
+                const logFormat = {
+                  hostname: hostname(),
+                  app: process.env.APP_NAME || 'Main Service',
+                  environment: ENV,
+                  level: msg.level,
+                  msg: msg.message,
+                  product: 'Service Main',
+                  time: new Date().toISOString(),
+                };
 
-              return JSON.stringify(logFormat);
-            }),
+                return JSON.stringify(logFormat);
+              }),
         }),
       ],
     }),

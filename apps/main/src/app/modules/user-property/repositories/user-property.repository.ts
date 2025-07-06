@@ -1,10 +1,17 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
-import { PropertyEntity, Property } from '@shared/core';
+import {
+  PropertyEntity,
+  PropertyMapper,
+  CreatePropertyDto,
+  UpdatePropertyDto,
+} from '@shared/core';
 
 @Injectable()
 export class UserPropertyRepository {
+  private logger = new Logger(UserPropertyRepository.name);
+
   constructor(
     @InjectRepository(PropertyEntity)
     private readonly property: Repository<PropertyEntity>,
@@ -22,11 +29,17 @@ export class UserPropertyRepository {
     await this.property.delete(id);
   }
 
-  async create(user: Property): Promise<PropertyEntity> {
-    return this.property.save(user);
+  async create(property: CreatePropertyDto): Promise<PropertyEntity> {
+    const createdProperty = await this.property.save(
+      PropertyMapper.toDomain(property),
+    );
+
+    this.logger.debug(`[create]: ${JSON.stringify(createdProperty)}`);
+
+    return createdProperty;
   }
 
-  async update(user: Property): Promise<PropertyEntity> {
-    return this.property.save(user);
+  async update(property: UpdatePropertyDto): Promise<PropertyEntity> {
+    return this.property.save(property);
   }
 }

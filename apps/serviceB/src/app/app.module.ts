@@ -28,7 +28,7 @@ import { BookingRepository } from './repositories';
           password: configService.get('DB_PASSWORD'),
           database: configService.get('DB_DATABASE'),
           autoLoadEntities: true,
-          synchronize: false, // important for production as this runs the migrations
+          synchronize: false,
         };
       },
       // dataSource receives the configured DataSourceOptions and returns a Promise<DataSource>.

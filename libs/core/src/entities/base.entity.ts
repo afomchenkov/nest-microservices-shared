@@ -8,7 +8,7 @@ import {
 } from 'typeorm';
 
 export class BaseEntity extends _BaseEntity {
-  @PrimaryGeneratedColumn({ name: 'id' })
+  @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @CreateDateColumn({
@@ -26,12 +26,11 @@ export class BaseEntity extends _BaseEntity {
   updatedAt: Date;
 
   // keep soft delete
-  @CreateDateColumn({
+  @DeleteDateColumn({
     name: 'deleted_at',
     type: 'timestamp',
-    default: () => 'CURRENT_TIMESTAMP',
+    nullable: true,
   })
-  @DeleteDateColumn()
   deletedAt: Date;
 
   @Column({ name: 'metadata', type: 'json', nullable: true })
