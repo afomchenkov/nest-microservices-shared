@@ -40,6 +40,6 @@ COPY --from=build /usr/src/dist ./dist
 
 USER node
 
-EXPOSE 3001
+EXPOSE 3003
 
 ENTRYPOINT [ "npm", "run", "start:prod:service-b" ]

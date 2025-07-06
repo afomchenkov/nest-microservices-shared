@@ -26,7 +26,7 @@ const setupSwagger = async (app: INestApplication): Promise<void> => {
 
   // generate new doc in dev mode
   if (ENV === 'development') {
-    await fs.writeFile('swagger.yaml', dump(document));
+    await fs.writeFile('swagger/main-service.swagger.yaml', dump(document));
   }
 };
 

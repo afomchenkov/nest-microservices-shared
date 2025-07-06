@@ -77,31 +77,51 @@ services:
     tmpfs:
       - /tmp
 
-  # service-a:
-  #   image: service-a:dev
-  #   container_name: service-a
-  #   build:
-  #     context: .
-  #     dockerfile: apps/serviceA/Dockerfile.dev
-  #   tty: true
-  #   depends_on:
-  #     migrations:
-  #       condition: service_completed_successfully
-  #   networks:
-  #     - shared-network
+  service-a:
+    image: service-a:dev
+    container_name: service-a
+    build:
+      context: .
+      dockerfile: apps/serviceA/Dockerfile
+    tty: true
+    env_file:
+      - ./apps/main/stage.production.env
+    depends_on:
+      migrations:
+        condition: service_completed_successfully
+    networks:
+      - shared-network
+    ports:
+      - 3002:3002
+    volumes:
+      - .:/usr/src
+      - /usr/src/node_modules
+    restart: unless-stopped
+    tmpfs:
+      - /tmp
 
-  # service-b:
-  #   image: service-b:dev
-  #   container_name: service-b
-  #   build:
-  #     context: .
-  #     dockerfile: apps/serviceB/Dockerfile.dev
-  #   tty: true
-  #   depends_on:
-  #     migrations:
-  #       condition: service_completed_successfully
-  #   networks:
-  #     - shared-network
+  service-b:
+    image: service-b:dev
+    container_name: service-b
+    build:
+      context: .
+      dockerfile: apps/serviceB/Dockerfile
+    tty: true
+    env_file:
+      - ./apps/main/stage.production.env
+    depends_on:
+      migrations:
+        condition: service_completed_successfully
+    networks:
+      - shared-network
+    ports:
+      - 3003:3003
+    volumes:
+      - .:/usr/src
+      - /usr/src/node_modules
+    restart: unless-stopped
+    tmpfs:
+      - /tmp
 
 networks:
   shared-network:

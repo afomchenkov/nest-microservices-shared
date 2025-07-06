@@ -1,0 +1,20 @@
+openapi: 3.0.0
+paths:
+  /api/v1/service-a/users:
+    get:
+      operationId: AppController_getUsers
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+        - App
+info:
+  title: Service A
+  description: Service A API documentation
+  version: 0.0.1
+  contact: {}
+tags: []
+servers: []
+components:
+  schemas: {}
