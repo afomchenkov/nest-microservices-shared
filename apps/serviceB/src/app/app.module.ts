@@ -14,7 +14,7 @@ import {
 } from '@shared/core';
 import { AppController } from './controllers';
 import { AppService } from './services';
-import { BookingRepository } from './repositories';
+import { BookingRepository } from './infrastructure/repositories';
 
 const ENV = process.env.NODE_ENV;
 

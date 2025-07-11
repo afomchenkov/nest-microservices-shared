@@ -13,7 +13,8 @@
     "build:service-a": "npx nx build serviceA",
     "build:service-b": "npx nx build serviceB",
     "start": "nx run-many --target serve --all --parallel",
-    "start:docker": "docker-compose -f docker-compose.dev.yml up --build",
+    "start:docker": "docker-compose -f docker-compose.base.yml up --build",
+    "start:docker:services": "docker compose -f docker-compose.base.yml -f docker-compose.service.yml up",
     "start:main": "NODE_ENV=development nx run main:serve --configuration=development --verbose",
     "start:prod:main": "node dist/apps/main/main.js",
     "start:service-a": "NODE_ENV=development nx run serviceA:serve --configuration=development --verbose",
@@ -135,9 +136,7 @@
     "webpack-cli": "^5.1.4",
     "webpack-node-externals": "^3.0.0"
   },
-  "workspaces": [
-    "libs/*"
-  ],
+  "workspaces": ["core_shared"],
   "nx": {
     "includedScripts": []
   }

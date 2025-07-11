@@ -1,4 +1,5 @@
-name: shared-microservices-dev
+version: '3.9'
+name: shared-microservices
 
 services:
   mysql-db:
@@ -13,7 +14,7 @@ services:
       MYSQL_PASSWORD: shared_user_123
       MYSQL_ROOT_PASSWORD: shared_user_123
     healthcheck:
-      test: ['CMD', 'mysqladmin', 'ping', '-h', 'localhost']
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
       interval: 3s
       timeout: 5s
       retries: 6
@@ -35,7 +36,7 @@ services:
         condition: service_healthy
     networks:
       - shared-network
-    restart: 'no'
+    restart: "no"
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
@@ -53,11 +54,11 @@ services:
     networks:
       - shared-network
 
+volumes:
+  shared-db-data:
+    name: shared-db-data
+
 networks:
   shared-network:
     name: shared-network
     driver: bridge
-
-volumes:
-  shared-db-data:
-    name: shared-db-data

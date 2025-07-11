@@ -1,58 +1,6 @@
-name: shared-microservices
+version: '3.9'
 
 services:
-  mysql-db:
-    image: mysql:8.0
-    container_name: core-db
-    restart: unless-stopped
-    ports:
-      - 3306:3306
-    environment:
-      MYSQL_DATABASE: shared
-      MYSQL_USER: shared_user
-      MYSQL_PASSWORD: shared_user_123
-      MYSQL_ROOT_PASSWORD: shared_user_123
-    healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
-      interval: 3s
-      timeout: 5s
-      retries: 6
-    volumes:
-      - shared-db-data:/var/lib/mysql
-    networks:
-      - shared-network
-
-  migrations:
-    image: migrations:dev
-    container_name: migration-runner
-    build:
-      context: .
-      dockerfile: apps/main/Dockerfile.migrations
-    env_file:
-      - ./apps/main/stage.production.env
-    depends_on:
-      mysql-db:
-        condition: service_healthy
-    networks:
-      - shared-network
-    restart: "no"
-
-  phpmyadmin:
-    image: phpmyadmin/phpmyadmin
-    container_name: phpmyadmin
-    restart: unless-stopped
-    ports:
-      - 8080:80
-    environment:
-      PMA_HOST: mysql-db
-      PMA_PORT: 3306
-      MYSQL_ROOT_PASSWORD: shared_user_123
-    depends_on:
-      mysql-db:
-        condition: service_healthy
-    networks:
-      - shared-network
-
   main-service:
     image: main-service:dev
     container_name: main-service
@@ -125,9 +73,4 @@ services:
 
 networks:
   shared-network:
-    name: shared-network
-    driver: bridge
-
-volumes:
-  shared-db-data:
-    name: shared-db-data
+    external: true
