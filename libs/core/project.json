@@ -12,6 +12,12 @@
   },
   "tags": [],
   "targets": {
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["libs/core/**/*.ts"]
+      }
+    },
     "migrate": {
       "executor": "nx:run-commands",
       "options": {

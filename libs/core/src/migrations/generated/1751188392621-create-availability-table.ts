@@ -1,9 +1,11 @@
 import {
-  MigrationInterface,
-  QueryRunner,
   Table,
   // TableForeignKey,
 } from 'typeorm';
+
+import type {
+  MigrationInterface,
+  QueryRunner} from 'typeorm';
 
 export class CreateAvailabilityTable1751188392621
   implements MigrationInterface

@@ -1,7 +1,7 @@
-import { User } from './user.model';
-import { Availability } from './availability.model';
-import { Booking } from './booking.model';
-import { BaseModel } from './base.model';
+import type { User } from './user.model';
+import type { Availability } from './availability.model';
+import type { Booking } from './booking.model';
+import type { BaseModel } from './base.model';
 
 export interface Property extends BaseModel {
   name: string;

@@ -5,8 +5,9 @@ import {
   Logger,
 } from '@nestjs/common';
 import { QueryFailedError } from 'typeorm';
-import { UserPropertyRepository } from '../repositories';
 import { PropertyEntity, CreatePropertyDto } from '@shared/core';
+
+import { UserPropertyRepository } from '../repositories';
 
 @Injectable()
 export class UserPropertyService {

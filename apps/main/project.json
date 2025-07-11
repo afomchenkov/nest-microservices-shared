@@ -5,6 +5,12 @@
   "projectType": "application",
   "tags": [],
   "targets": {
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "options": {
+        "lintFilePatterns": ["apps/main/**/*.ts"]
+      }
+    },
     "build": {
       "executor": "@nx/esbuild:esbuild",
       "cache": false,

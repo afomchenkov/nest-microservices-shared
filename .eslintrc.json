@@ -1,0 +1,95 @@
+{
+  "root": true,
+  "ignorePatterns": ["**/*"],
+  "parser": "@typescript-eslint/parser",
+  "extends": ["plugin:@typescript-eslint/recommended"],
+  "plugins": ["@nx", "import", "@typescript-eslint"],
+  "overrides": [
+    {
+      "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
+      "rules": {
+        "@nx/enforce-module-boundaries": [
+          "error",
+          {
+            "enforceBuildableLibDependency": true,
+            "allow": [],
+            "depConstraints": []
+          }
+        ],
+        "import/first": ["error"],
+        "import/no-useless-path-segments": ["error"],
+        "import/no-duplicates": ["error"],
+        "import/order": [
+          "error",
+          {
+            "pathGroups": [
+              {
+                "pattern": "*.+(css|sass|less|scss|pcss|styl)",
+                "patternOptions": {
+                  "dot": true,
+                  "nocomment": true,
+                  "matchBase": true
+                },
+                "group": "unknown"
+              }
+            ],
+            "groups": [
+              ["external", "builtin"],
+              "internal",
+              ["index", "sibling", "parent"],
+              "object",
+              "type",
+              "unknown"
+            ],
+            "newlines-between": "always",
+            "pathGroupsExcludedImportTypes": ["type"]
+          }
+        ],
+        "no-console": [
+          "error",
+          {
+            "allow": ["warn", "error", "log"]
+          }
+        ]
+      }
+    },
+    {
+      "files": ["*.ts", "*.tsx"],
+      "extends": ["plugin:@nx/typescript"],
+      "rules": {
+        "@typescript-eslint/explicit-member-accessibility": ["warn"],
+        "@typescript-eslint/consistent-type-imports": ["error"],
+        "@typescript-eslint/naming-convention": [
+          "error",
+          {
+            "selector": "interface",
+            "format": ["PascalCase"]
+          },
+          {
+            "selector": "class",
+            "format": ["PascalCase"]
+          },
+          {
+            "selector": "typeAlias",
+            "format": ["PascalCase"]
+          }
+        ],
+        "no-mixed-spaces-and-tabs": "off",
+        "no-extra-semi": "off"
+      }
+    },
+    {
+      "files": ["*.js", "*.jsx"],
+      "extends": ["plugin:@nx/javascript"],
+      "rules": {
+        "@typescript-eslint/no-extra-semi": "error",
+        "no-extra-semi": "off"
+      }
+    },
+    {
+      "files": "*.json",
+      "parser": "jsonc-eslint-parser",
+      "rules": {}
+    }
+  ]
+}

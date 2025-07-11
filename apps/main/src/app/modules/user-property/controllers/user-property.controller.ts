@@ -9,13 +9,14 @@ import {
   ApiTags,
   ApiConflictResponse,
 } from '@nestjs/swagger';
-import { UserPropertyService } from '../services';
 import {
   AllPropertiesDto,
   PropertyMapper,
   PropertyDto,
   CreatePropertyDto,
 } from '@shared/core';
+
+import { UserPropertyService } from '../services';
 
 @Controller('user-property')
 @ApiTags('User Property')

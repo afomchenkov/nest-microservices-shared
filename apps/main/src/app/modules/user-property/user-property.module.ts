@@ -1,9 +1,10 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { PropertyEntity } from '@shared/core';
+
 import { UserPropertyController } from './controllers';
 import { UserPropertyService } from './services';
 import { UserPropertyRepository } from './repositories';
-import { PropertyEntity } from '@shared/core';
 
 const providers = [UserPropertyRepository, UserPropertyService];
 

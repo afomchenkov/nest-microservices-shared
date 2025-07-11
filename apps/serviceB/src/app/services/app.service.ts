@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import { BookingRepository } from '../infrastructure/repositories';
 import { BookingEntity } from '@shared/core';
+
+import { BookingRepository } from '../infrastructure/repositories';
 
 @Injectable()
 export class AppService {

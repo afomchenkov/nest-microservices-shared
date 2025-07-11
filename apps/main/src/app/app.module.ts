@@ -6,6 +6,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { DataSource } from 'typeorm';
 import { TerminusModule } from '@nestjs/terminus';
 import { configValidationSchema } from '@shared/core';
+
 import { UserPropertyModule } from './modules/user-property';
 import { AppController } from './controllers/app.controller';
 import { AppService, HealthService, PingIndicatorService } from './services';

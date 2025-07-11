@@ -1,9 +1,11 @@
 import {
-  MigrationInterface,
-  QueryRunner,
   Table,
   // TableForeignKey,
 } from 'typeorm';
+
+import type {
+  MigrationInterface,
+  QueryRunner} from 'typeorm';
 
 export class CreatePropertyEntity1751188440117 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {

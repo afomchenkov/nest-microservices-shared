@@ -1,8 +1,9 @@
-import { UserEntity } from '../entities';
-import { User } from '../domain';
-import { UserDto } from '../dtos';
 import { PropertyMapper } from './property.mapper';
 import { BookingMapper } from './booking.mapper';
+
+import type { UserEntity } from '../entities';
+import type { User } from '../domain';
+import type { UserDto } from '../dtos';
 
 export class UserMapper {
   static toDomain(entity: UserEntity): User {

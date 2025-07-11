@@ -1,6 +1,7 @@
 import { Controller, Get } from '@nestjs/common';
-import { AppService } from '../services';
 import { AllBookingsDto, BookingMapper } from '@shared/core';
+
+import { AppService } from '../services';
 
 @Controller('service-b')
 export class AppController {

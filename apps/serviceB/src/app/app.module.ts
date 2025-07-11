@@ -12,6 +12,7 @@ import {
   BookingEntity,
   AvailabilityEntity,
 } from '@shared/core';
+
 import { AppController } from './controllers';
 import { AppService } from './services';
 import { BookingRepository } from './infrastructure/repositories';

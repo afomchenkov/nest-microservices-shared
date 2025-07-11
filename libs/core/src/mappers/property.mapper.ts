@@ -1,6 +1,6 @@
-import { PropertyEntity } from '../entities';
-import { Property } from '../domain';
-import { PropertyDto, CreatePropertyDto } from '../dtos';
+import type { PropertyEntity } from '../entities';
+import type { Property } from '../domain';
+import type { PropertyDto, CreatePropertyDto } from '../dtos';
 
 export class PropertyMapper {
   static toDomain(entity: CreatePropertyDto): Partial<Property> {

@@ -1,13 +1,16 @@
 import { hostname } from 'os';
 import { promises as fs } from 'node:fs';
 import { NestFactory } from '@nestjs/core';
-import { INestApplication, ValidationPipe } from '@nestjs/common';
+import { ValidationPipe } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { ConfigService } from '@nestjs/config';
 import { WinstonModule, utilities } from 'nest-winston';
 import { format, transports } from 'winston';
 import { dump } from 'js-yaml';
+
 import { AppModule } from './app/app.module';
+
+import type { INestApplication} from '@nestjs/common';
 
 const ENV = process.env.NODE_ENV;
 

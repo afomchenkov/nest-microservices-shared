@@ -14,15 +14,19 @@
     "build:service-b": "npx nx build serviceB",
     "start": "nx run-many --target serve --all --parallel",
     "start:docker": "docker-compose -f docker-compose.base.yml up --build",
-    "start:docker:services": "docker compose -f docker-compose.base.yml -f docker-compose.service.yml up",
+    "start:docker:services": "docker-compose -f docker-compose.base.yml -f docker-compose.service.yml up --build",
     "start:main": "NODE_ENV=development nx run main:serve --configuration=development --verbose",
     "start:prod:main": "node dist/apps/main/main.js",
     "start:service-a": "NODE_ENV=development nx run serviceA:serve --configuration=development --verbose",
-    "start:prod:service-a": "node dist/serviceA/main.js",
+    "start:prod:service-a": "node dist/apps/serviceA/main.js",
     "start:service-b": "NODE_ENV=development nx run serviceB:serve --configuration=development --verbose",
-    "start:prod:service-b": "node dist/serviceB/main.js",
+    "start:prod:service-b": "node dist/apps/serviceB/main.js",
     "typecheck": "nx run-many --target typecheck --all --parallel",
     "lint": "nx run-many --target lint --all --parallel",
+    "lint:main": "nx run main:lint",
+    "lint:service-a": "nx run serviceA:lint",
+    "lint:service-b": "nx run serviceB:lint",
+    "lint:core": "nx run core:lint",
     "format": "nx run-many --target format --all --parallel",
     "format:check": "nx run-many --target format:check --all --parallel",
     "test:watch": "nx run-many --target test --all --parallel --watch",
@@ -111,6 +115,7 @@
     "esbuild-plugin-tsc": "^0.5.0",
     "eslint": "^9.29.0",
     "eslint-config-prettier": "^10.1.5",
+    "eslint-plugin-import": "^2.32.0",
     "eslint-plugin-prettier": "^5.5.1",
     "jest": "^30.0.3",
     "jest-environment-node": "^29.7.0",
@@ -136,7 +141,9 @@
     "webpack-cli": "^5.1.4",
     "webpack-node-externals": "^3.0.0"
   },
-  "workspaces": ["core_shared"],
+  "workspaces": [
+    "libs/*"
+  ],
   "nx": {
     "includedScripts": []
   }

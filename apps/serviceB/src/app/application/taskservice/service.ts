@@ -1,4 +1,4 @@
-import { Task } from '../../domain/tasks/entity';
+import type { Task } from '../../domain/tasks/entity';
 
 type TaskRepository = {
   getById(id: string): Task;

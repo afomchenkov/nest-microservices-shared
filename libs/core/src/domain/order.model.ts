@@ -1,5 +1,5 @@
-import { Booking } from './booking.model';
-import { BaseModel } from './base.model';
+import type { Booking } from './booking.model';
+import type { BaseModel } from './base.model';
 
 export interface Order extends BaseModel {
   price: string;

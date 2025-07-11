@@ -33,7 +33,7 @@ services:
       dockerfile: apps/serviceA/Dockerfile
     tty: true
     env_file:
-      - ./apps/main/stage.production.env
+      - ./apps/serviceA/stage.production.env
     depends_on:
       migrations:
         condition: service_completed_successfully
@@ -56,7 +56,7 @@ services:
       dockerfile: apps/serviceB/Dockerfile
     tty: true
     env_file:
-      - ./apps/main/stage.production.env
+      - ./apps/serviceB/stage.production.env
     depends_on:
       migrations:
         condition: service_completed_successfully
@@ -70,7 +70,3 @@ services:
     restart: unless-stopped
     tmpfs:
       - /tmp
-
-networks:
-  shared-network:
-    external: true
