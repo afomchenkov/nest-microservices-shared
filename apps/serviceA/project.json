@@ -70,7 +70,10 @@
       }
     },
     "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/apps/main"],
       "options": {
+        "jestConfig": "apps/serviceA/jest.config.ts",
         "passWithNoTests": true
       }
     }
