@@ -1,5 +1,5 @@
 import * as path from 'path';
-import { Module } from '@nestjs/common';
+import { Module, MiddlewareConsumer } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { ScheduleModule } from '@nestjs/schedule';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -16,6 +16,7 @@ import {
 import { AppController } from './controllers';
 import { AppService } from './services';
 import { BookingRepository } from './infrastructure/repositories';
+import { LoggerMiddleware } from './middlewares';
 
 const ENV = process.env.NODE_ENV;
 
@@ -59,4 +60,10 @@ const ENV = process.env.NODE_ENV;
   controllers: [AppController],
   providers: [AppService, BookingRepository],
 })
-export class AppModule {}
+export class AppModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer
+      .apply(LoggerMiddleware)
+      .forRoutes('*'); // { path: 'users', method: RequestMethod.GET }
+  }
+}

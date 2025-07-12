@@ -1,7 +1,7 @@
 import { hostname } from 'os';
 import { promises as fs } from 'node:fs';
-import { NestFactory } from '@nestjs/core';
-import { ValidationPipe } from '@nestjs/common';
+import { NestFactory, Reflector } from '@nestjs/core';
+import { ValidationPipe, ClassSerializerInterceptor } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { ConfigService } from '@nestjs/config';
 import { WinstonModule, utilities } from 'nest-winston';
@@ -10,7 +10,7 @@ import { dump } from 'js-yaml';
 
 import { AppModule } from './app/app.module';
 
-import type { INestApplication} from '@nestjs/common';
+import type { INestApplication } from '@nestjs/common';
 
 const ENV = process.env.NODE_ENV;
 
@@ -43,26 +43,26 @@ async function bootstrap() {
         new transports.Console({
           format: ['development'].includes(ENV)
             ? format.combine(
-              format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss.SSS' }),
-              format.ms(),
-              utilities.format.nestLike('Service B Dev', {
-                colors: true,
-                prettyPrint: true,
-              }),
-            )
+                format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss.SSS' }),
+                format.ms(),
+                utilities.format.nestLike('Service B Dev', {
+                  colors: true,
+                  prettyPrint: true,
+                }),
+              )
             : format.printf((msg) => {
-              const logFormat = {
-                hostname: hostname(),
-                app: process.env.APP_NAME,
-                environment: ENV,
-                level: msg.level,
-                msg: msg.message,
-                product: 'Service B',
-                time: new Date().toISOString(),
-              };
+                const logFormat = {
+                  hostname: hostname(),
+                  app: process.env.APP_NAME,
+                  environment: ENV,
+                  level: msg.level,
+                  msg: msg.message,
+                  product: 'Service B',
+                  time: new Date().toISOString(),
+                };
 
-              return JSON.stringify(logFormat);
-            }),
+                return JSON.stringify(logFormat);
+              }),
         }),
       ],
     }),
@@ -72,6 +72,8 @@ async function bootstrap() {
 
   // Set the global prefix for all routes
   app.setGlobalPrefix('api/v1');
+
+  app.useGlobalInterceptors(new ClassSerializerInterceptor(app.get(Reflector)));
 
   app.useGlobalPipes(
     new ValidationPipe({
