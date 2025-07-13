@@ -1,9 +1,9 @@
 import { Test } from '@nestjs/testing';
+import { convertKeysToSnakeCase } from '@shared/core';
 
 import { AppController } from './app.controller';
 import { AppService } from '../services';
 import { UserRepository } from '../repositories';
-import { convertKeysToSnakeCase } from '@shared/core';
 
 import type { TestingModule } from '@nestjs/testing';
 
