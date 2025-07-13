@@ -6,8 +6,8 @@ on:
     paths:
       - 'apps/main/**'
       - 'libs/**'
-      - 'Dockerfile'
-      - '.github/workflows/main-service.yml'
+      - 'apps/main/Dockerfile'
+      - '.github/workflows/cd-main-service.yml'
   pull_request:
     branches: [main]
 
