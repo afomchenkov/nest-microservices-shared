@@ -4,6 +4,7 @@ import {
   isAfter,
   isEqual,
   eachDayOfInterval,
+  differenceInWeeks,
 } from 'date-fns';
 
 export const DATE_TIME_FORMAT = 'YYYY-MM-DD HH:MM:SS';
@@ -47,4 +48,10 @@ export const generateDateArray = (startDate: Date, endDate: Date): string[] => {
     format(date, DATE_TIME_FORMAT),
   );
   return formattedDatesArray;
+};
+
+export const howManyWeeksTillDate = (futureDate: Date) => {
+  const now = new Date();
+  const weeksUntil = differenceInWeeks(futureDate, now);
+  return weeksUntil;
 };
