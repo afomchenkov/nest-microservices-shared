@@ -33,8 +33,8 @@
     "test:ci": "nx run-many --target test --all --parallel --ci",
     "test:debug": "nx run-many --target test --all --parallel --debug",
     "test:debug:watch": "nx run-many --target test --all --parallel",
-    "test:main": "nx run main:test",
-    "test:service-a": "nx run serviceA:test",
+    "test:main": "nx run main:test --code-coverage",
+    "test:service-a": "nx run serviceA:test --code-coverage",
     "migration:run": "nx run core:migrate",
     "migration:revert": "npm run migration:revert",
     "migration:generate": "typeorm migration:generate -d libs/core/src/migrations/data-source.ts libs/core/src/migrations/generated"
