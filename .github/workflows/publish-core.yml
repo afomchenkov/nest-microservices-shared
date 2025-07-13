@@ -22,6 +22,18 @@ jobs:
           npm ci
           npm run build:core
 
+      # - name: Create Git tag for shared-core
+      #   run: |
+      #     PKG_NAME=$(node -p "require('./libs/core/package.json').name.split('/').pop()")
+      #     VERSION=$(node -p "require('./libs/core/package.json').version")
+      #     TAG="$PKG_NAME-v$VERSION"
+      # 
+      #     git config user.name "github-actions-bot"
+      #     git config user.email "github-actions-bot@users.noreply.github.com"
+      # 
+      #     git tag "$TAG"
+      #     git push origin "$TAG"
+
       - name: Publish core lib to npm
         run: npm publish --access public
         working-directory: dist/core
