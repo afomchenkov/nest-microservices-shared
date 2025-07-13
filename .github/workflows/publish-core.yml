@@ -20,7 +20,7 @@ jobs:
       - name: Install dependencies and build core lib
         run: |
           npm ci
-          npx nx build:core
+          npm run build:core
 
       - name: Publish core lib to npm
         run: npm publish --access public
