@@ -3,6 +3,48 @@ version: '3.9'
 name: shared-microservices
 
 services:
+  grafana:
+    container_name: grafana
+    image: grafana/grafana:latest
+    ports:
+      - '3000:3000'
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    volumes:
+      - v_grafana_data:/var/lib/grafana
+
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    volumes:
+      - ./prometheus.yaml:/etc/prometheus/prometheus.yaml
+    ports:
+      - '9090:9090'
+    command:
+      - --config.file=/etc/prometheus/prometheus.yaml
+      - --web.enable-lifecycle
+
+  loki:
+    image: grafana/loki:2.9.2
+    container_name: loki
+    user: root
+    ports:
+      - '9095:9095'
+      - '3100:3100'
+    command: -config.file=/etc/loki/local-config.yaml
+    volumes:
+      - ./loki-config.yaml:/etc/loki/local-config.yaml
+      - v_loki_data:/loki
+
+  promtail:
+    image: grafana/promtail:2.9.2
+    container_name: promtail
+    volumes:
+      - ./promtail-config.yaml:/etc/promtail/config.yml
+      - ./node_app/logs:/var/log/node_app
+    command: -config.file=/etc/promtail/config.yml
+
   mysql-db:
     image: mysql:8.0
     container_name: core-db
@@ -15,7 +57,7 @@ services:
       MYSQL_PASSWORD: shared_user_123
       MYSQL_ROOT_PASSWORD: shared_user_123
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      test: ['CMD', 'mysqladmin', 'ping', '-h', 'localhost']
       interval: 3s
       timeout: 5s
       retries: 6
@@ -37,7 +79,7 @@ services:
         condition: service_healthy
     networks:
       - shared-network
-    restart: "no"
+    restart: 'no'
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
@@ -58,6 +100,8 @@ services:
 volumes:
   shared-db-data:
     name: shared-db-data
+  v_loki_data: {}
+  v_grafana_data: {}
 
 networks:
   shared-network:
